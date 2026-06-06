@@ -15,39 +15,49 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             min-height: 100vh;
-            background-color: #FFF0F5; /* خلفية وردية ناعمة كلاسيكية */
+            /* استخدام صورتكِ اللطيفة كخلفية كاملة متناسقة */
+            background-image: url('https://raw.githubusercontent.com/charefoussama598/sorry/main/1ca9527ac1d06d633fb198ace8f00cc4.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             position: relative;
+            padding: 40px 20px;
         }
 
         h1 {
-            color: #6B4E5B; /* لون موف داكن وأنيق للمظهر الرسمي اللطيف */
+            color: #6B4E5B; /* موف داكن وأنيق للزمالة */
             font-size: 1.8rem;
-            margin-bottom: 40px;
             z-index: 10;
             text-align: center;
-            padding: 0 20px;
             line-height: 1.4;
+            background-color: rgba(255, 240, 245, 0.85); /* خلفية ضبابية خفيفة لتسهيل القراءة */
+            padding: 15px 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
         }
 
-        /* حاوية الأزرار المطورة لتوفير مساحة هروب ممتازة على الهاتف */
+        /* حاوية الأزرار في الأسفل لتعطي مساحة هروب ممتازة */
         .buttons-container {
             position: relative;
-            width: 90%;
+            width: 100%;
             max-width: 400px;
-            height: 250px;
+            height: 200px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
             z-index: 10;
+            margin-bottom: 40px;
         }
 
         #yesBtn {
-            background-color: #E28F9D; /* وردي هادئ وراقي */
+            background-color: #E28F9D; /* وردي راقي */
             color: white;
             border: none;
             padding: 14px 30px;
@@ -55,26 +65,31 @@
             font-weight: 500;
             border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(226, 143, 157, 0.3);
-            transition: all 0.2s ease-out;
+            box-shadow: 0 4px 15px rgba(226, 143, 157, 0.4);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             white-space: nowrap;
             z-index: 12;
         }
 
         #noBtn {
-            background-color: #E0E0E0; /* رمادي فاتح حيادي */
+            background-color: #E0E0E0; /* رمادي حيادي */
             color: #666;
             border: none;
             padding: 12px 25px;
             font-size: 1rem;
             border-radius: 30px;
             cursor: pointer;
-            transition: all 0.2s ease-out; /* حركة هروب انسيابية ناعمة */
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 11;
             white-space: nowrap;
         }
 
-        /* تأثير القلوب والأزهار المتساقطة */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* مطر الزهور الناعمة */
         .heart {
             position: absolute;
             color: #FBC4CB;
@@ -91,7 +106,7 @@
             }
         }
 
-        /* تصميم نافذة القبول المخصصة الأنيقة */
+        /* النافذة المنبثقة الأنيقة عند القبول */
         .custom-modal {
             display: none;
             position: fixed;
@@ -99,7 +114,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(107, 78, 91, 0.4); /* خلفية ضبابية خفيفة */
+            background-color: rgba(107, 78, 91, 0.4);
             z-index: 100;
             justify-content: center;
             align-items: center;
@@ -116,7 +131,7 @@
             text-align: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             transform: scale(0.8);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .modal-content h2 {
@@ -171,33 +186,31 @@
             const yesBtn = document.getElementById('yesBtn');
             const container = document.getElementById('container');
             
-            // عند أول حركة، نغير وضعية زر لا إلى absolute لتبدأ الخدعة بمرونة
             if (!hasMoved) {
                 noBtn.style.position = 'absolute';
                 yesBtn.style.position = 'absolute';
                 hasMoved = true;
             }
 
-            // حساب أبعاد الحاوية بدقة لتجنب خروج الزر خارج إطار الهاتف
+            // حساب مساحة الهروب داخل حاوية الهاتف لضمان عدم الاختفاء
             const maxX = container.clientWidth - noBtn.clientWidth;
             const maxY = container.clientHeight - noBtn.clientHeight;
             
-            // توليد إحداثيات عشوائية ذكية ومضمونة التواجد داخل الإطار
             const randomX = Math.floor(Math.random() * maxX);
             const randomY = Math.floor(Math.random() * maxY);
             
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
 
-            // تضخيم زر القبول "Yes" تدريجياً وبشكل متناسق
-            yesSize += 0.3;
-            paddingX += 8;
-            paddingY += 4;
+            // تضخيم زر نعم تدريجياً
+            yesSize += 0.35;
+            paddingX += 12;
+            paddingY += 6;
             
             yesBtn.style.fontSize = yesSize + 'rem';
             yesBtn.style.padding = `${paddingY}px ${paddingX}px`;
 
-            // النهاية الحتمية: زر نعم يملأ الإطار تماماً ويختفي زر لا
+            // تغطية كامل الشاشة لمنع الرفض نهائياً
             if(yesSize > 4.0) {
                 yesBtn.style.position = 'fixed';
                 yesBtn.style.top = '0';
@@ -212,11 +225,9 @@
             }
         }
 
-        // دالة إظهار نافذة الشكر الأنيقة والمطورة
         function acceptApology() {
             const modal = document.getElementById('myModal');
             const modalContent = document.getElementById('modalContent');
-            
             modal.style.display = 'flex';
             setTimeout(() => {
                 modal.style.opacity = '1';
@@ -227,17 +238,14 @@
         function closeModal() {
             const modal = document.getElementById('myModal');
             const modalContent = document.getElementById('modalContent');
-            
             modal.style.opacity = '0';
             modalContent.style.transform = 'scale(0.8)';
             setTimeout(() => {
                 modal.style.display = 'none';
-                // إغلاق الصفحة بعد قبول الاعتذار وإغلاق النافذة
-                window.close(); 
             }, 300);
         }
 
-        // توليد حركة تساقط الزهور والقلوب الناعمة
+        // توليد حركة تساقط أزهار الكرز اللطيفة
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
