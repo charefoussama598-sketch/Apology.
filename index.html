@@ -18,8 +18,8 @@
             justify-content: space-between;
             min-height: 100vh;
             background-color: #FFE4E1;
-            /* رابط الصورة الجديدة المدمجة بالكامل */
-            background-image: url('https://raw.githubusercontent.com/charefoussama598-sketch/apology/main/wp8637321.jpg');
+            /* استدعاء الصورة باسمها المباشر المرفوع بجانب ملف الـ html */
+            background-image: url('wp8637321.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -35,7 +35,7 @@
             z-index: 10;
             text-align: center;
             line-height: 1.4;
-            background-color: rgba(255, 245, 247, 0.88); /* خلفية ضبابية ناعمة لتوضيح النص فوق تفاصيل الصورة */
+            background-color: rgba(255, 245, 247, 0.9); /* إطار ناعم وواضح جداً فوق الخلفية */
             padding: 15px 20px;
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -98,7 +98,6 @@
             100% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(226, 143, 157, 0.6); }
         }
 
-        /* تأثير مطر القلوب والزهور المتساقطة بكثافة */
         .heart {
             position: absolute;
             color: #FBC4CB;
@@ -115,7 +114,6 @@
             100% { transform: translateY(105vh) rotate(360deg); }
         }
 
-        /* تصميم النافذة المنبثقة البسيطة والأنيقة */
         .custom-modal {
             display: none;
             position: fixed;
@@ -271,7 +269,6 @@
             }, 4500);
         }
 
-        // تساقط مستمر وممتع كل 250 مللي ثانية
         setInterval(createHeart, 250);
     </script>
 </body>
