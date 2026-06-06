@@ -17,8 +17,8 @@
             align-items: center;
             justify-content: space-between;
             min-height: 100vh;
-            /* استخدام صورتكِ اللطيفة كخلفية كاملة متناسقة */
-            background-image: url('https://raw.githubusercontent.com/charefoussama598/sorry/main/1ca9527ac1d06d633fb198ace8f00cc4.jpg');
+            /* رابط الصورة الأصلي والمباشر والمضمون */
+            background-image: url('https://i.pinimg.com/originals/1c/a9/52/1ca9527ac1d06d633fb198ace8f00cc4.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -29,20 +29,18 @@
         }
 
         h1 {
-            color: #6B4E5B; /* موف داكن وأنيق للزمالة */
+            color: #6B4E5B;
             font-size: 1.8rem;
             z-index: 10;
             text-align: center;
             line-height: 1.4;
-            background-color: rgba(255, 240, 245, 0.85); /* خلفية ضبابية خفيفة لتسهيل القراءة */
+            background-color: rgba(255, 240, 245, 0.85); /* خلفية بيضاء ضبابية لتتضح الكتابة فوق الصورة */
             padding: 15px 25px;
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-top: 20px;
-            animation: fadeIn 1s ease-in-out;
         }
 
-        /* حاوية الأزرار في الأسفل لتعطي مساحة هروب ممتازة */
         .buttons-container {
             position: relative;
             width: 100%;
@@ -57,7 +55,7 @@
         }
 
         #yesBtn {
-            background-color: #E28F9D; /* وردي راقي */
+            background-color: #E28F9D;
             color: white;
             border: none;
             padding: 14px 30px;
@@ -72,7 +70,7 @@
         }
 
         #noBtn {
-            background-color: #E0E0E0; /* رمادي حيادي */
+            background-color: #E0E0E0;
             color: #666;
             border: none;
             padding: 12px 25px;
@@ -84,12 +82,6 @@
             white-space: nowrap;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* مطر الزهور الناعمة */
         .heart {
             position: absolute;
             color: #FBC4CB;
@@ -106,7 +98,6 @@
             }
         }
 
-        /* النافذة المنبثقة الأنيقة عند القبول */
         .custom-modal {
             display: none;
             position: fixed;
@@ -192,7 +183,6 @@
                 hasMoved = true;
             }
 
-            // حساب مساحة الهروب داخل حاوية الهاتف لضمان عدم الاختفاء
             const maxX = container.clientWidth - noBtn.clientWidth;
             const maxY = container.clientHeight - noBtn.clientHeight;
             
@@ -202,7 +192,6 @@
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
 
-            // تضخيم زر نعم تدريجياً
             yesSize += 0.35;
             paddingX += 12;
             paddingY += 6;
@@ -210,7 +199,6 @@
             yesBtn.style.fontSize = yesSize + 'rem';
             yesBtn.style.padding = `${paddingY}px ${paddingX}px`;
 
-            // تغطية كامل الشاشة لمنع الرفض نهائياً
             if(yesSize > 4.0) {
                 yesBtn.style.position = 'fixed';
                 yesBtn.style.top = '0';
@@ -245,7 +233,6 @@
             }, 300);
         }
 
-        // توليد حركة تساقط أزهار الكرز اللطيفة
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
