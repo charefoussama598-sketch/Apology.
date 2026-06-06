@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sincere Apology 🎀</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             margin: 0;
             padding: 0;
@@ -13,62 +17,64 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background-color: #FFF0F5; /* خلفية وردية ناعمة وأنثوية */
+            background-color: #FFF0F5; /* خلفية وردية ناعمة كلاسيكية */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             position: relative;
         }
 
         h1 {
-            color: #6B4E5B; /* لون موف دافئ وأنيق */
-            font-size: 2rem;
+            color: #6B4E5B; /* لون موف داكن وأنيق للمظهر الرسمي اللطيف */
+            font-size: 1.8rem;
             margin-bottom: 40px;
             z-index: 10;
             text-align: center;
             padding: 0 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            line-height: 1.4;
         }
 
+        /* حاوية الأزرار المطورة لتوفير مساحة هروب ممتازة على الهاتف */
         .buttons-container {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
             position: relative;
-            width: 100%;
-            height: 200px;
+            width: 90%;
+            max-width: 400px;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
         }
 
         #yesBtn {
-            background-color: #E28F9D; /* وردي راقٍ للقبول */
+            background-color: #E28F9D; /* وردي هادئ وراقي */
             color: white;
             border: none;
-            padding: 15px 35px;
-            font-size: 1.2rem;
+            padding: 14px 30px;
+            font-size: 1.1rem;
             font-weight: 500;
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(226, 143, 157, 0.3);
-            transition: all 0.2s ease;
+            transition: all 0.2s ease-out;
             white-space: nowrap;
-            z-index: 11;
+            z-index: 12;
         }
 
         #noBtn {
-            background-color: #E0E0E0; /* رمادي حيادي للرفض */
+            background-color: #E0E0E0; /* رمادي فاتح حيادي */
             color: #666;
             border: none;
             padding: 12px 25px;
             font-size: 1rem;
             border-radius: 30px;
             cursor: pointer;
-            position: absolute;
-            transition: all 0.1s ease;
-            z-index: 10;
+            transition: all 0.2s ease-out; /* حركة هروب انسيابية ناعمة */
+            z-index: 11;
+            white-space: nowrap;
         }
 
-        /* مطر ناعم من الأزهار والقلوب الصغيرة في الخلفية */
+        /* تأثير القلوب والأزهار المتساقطة */
         .heart {
             position: absolute;
             color: #FBC4CB;
@@ -76,12 +82,64 @@
             animation: fall linear forwards;
             z-index: 1;
             user-select: none;
+            pointer-events: none;
         }
 
         @keyframes fall {
             to {
                 transform: translateY(105vh) rotate(360deg);
             }
+        }
+
+        /* تصميم نافذة القبول المخصصة الأنيقة */
+        .custom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(107, 78, 91, 0.4); /* خلفية ضبابية خفيفة */
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-content h2 {
+            color: #6B4E5B;
+            font-size: 1.4rem;
+            margin-top: 0;
+        }
+
+        .modal-content p {
+            color: #888;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .modal-content button {
+            background-color: #E28F9D;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -91,39 +149,56 @@
 
     <div class="buttons-container" id="container">
         <button id="yesBtn" onclick="acceptApology()">Yes, I accept 😊</button>
-        <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No 🚫</button>
+        <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()" ontouchstart="moveNo()">No 🚫</button>
+    </div>
+
+    <div class="custom-modal" id="myModal">
+        <div class="modal-content" id="modalContent">
+            <h2>Thank you so much! ✨🌸</h2>
+            <p>I truly appreciate your kindness and understanding. Wishing you all the best!</p>
+            <button onclick="closeModal()">Close</button>
+        </div>
     </div>
 
     <script>
-        let yesSize = 1.2;
-        let paddingX = 35;
-        let paddingY = 15;
+        let yesSize = 1.1;
+        let paddingX = 30;
+        let paddingY = 14;
+        let hasMoved = false;
 
         function moveNo() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
             const container = document.getElementById('container');
             
-            // الهروب العشوائي لزر الرفض "No"
+            // عند أول حركة، نغير وضعية زر لا إلى absolute لتبدأ الخدعة بمرونة
+            if (!hasMoved) {
+                noBtn.style.position = 'absolute';
+                yesBtn.style.position = 'absolute';
+                hasMoved = true;
+            }
+
+            // حساب أبعاد الحاوية بدقة لتجنب خروج الزر خارج إطار الهاتف
             const maxX = container.clientWidth - noBtn.clientWidth;
             const maxY = container.clientHeight - noBtn.clientHeight;
             
+            // توليد إحداثيات عشوائية ذكية ومضمونة التواجد داخل الإطار
             const randomX = Math.floor(Math.random() * maxX);
             const randomY = Math.floor(Math.random() * maxY);
             
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
 
-            // تضخيم زر القبول "Yes"
+            // تضخيم زر القبول "Yes" تدريجياً وبشكل متناسق
             yesSize += 0.3;
-            paddingX += 12;
-            paddingY += 6;
+            paddingX += 8;
+            paddingY += 4;
             
             yesBtn.style.fontSize = yesSize + 'rem';
             yesBtn.style.padding = `${paddingY}px ${paddingX}px`;
 
-            // إذا كبر الزر جداً يغطي الشاشة بالكامل لحجب خيار الرفض
-            if(yesSize > 4.5) {
+            // النهاية الحتمية: زر نعم يملأ الإطار تماماً ويختفي زر لا
+            if(yesSize > 4.0) {
                 yesBtn.style.position = 'fixed';
                 yesBtn.style.top = '0';
                 yesBtn.style.left = '0';
@@ -137,11 +212,32 @@
             }
         }
 
+        // دالة إظهار نافذة الشكر الأنيقة والمطورة
         function acceptApology() {
-            alert("Thank you so much! I truly appreciate your kindness and understanding. Wishing you the best! ✨🌸");
+            const modal = document.getElementById('myModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modalContent.style.transform = 'scale(1)';
+            }, 10);
         }
 
-        // توليد حركة تساقط الزهور والقلوب
+        function closeModal() {
+            const modal = document.getElementById('myModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.style.opacity = '0';
+            modalContent.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                // إغلاق الصفحة بعد قبول الاعتذار وإغلاق النافذة
+                window.close(); 
+            }, 300);
+        }
+
+        // توليد حركة تساقط الزهور والقلوب الناعمة
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -159,7 +255,7 @@
             }, 6000);
         }
 
-        setInterval(createHeart, 400);
+        setInterval(createHeart, 450);
     </script>
 </body>
 </html>
