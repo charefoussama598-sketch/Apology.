@@ -17,31 +17,30 @@
             align-items: center;
             justify-content: space-between;
             min-height: 100vh;
-            background-color: #FFF0F5;
-            /* استدعاء الصورة مباشرة ومضمونة من مستودع apology الخاص بكِ */
-            background-image: url('https://raw.githubusercontent.com/charefoussama598-sketch/apology/main/1ca9527ac1d06d633fb198ace8f00cc4.jpg');
+            background-color: #FFE4E1;
+            /* رابط الصورة الجديدة المدمجة بالكامل */
+            background-image: url('https://raw.githubusercontent.com/charefoussama598-sketch/apology/main/wp8637321.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             position: relative;
-            padding: 30px 20px;
+            padding: 40px 20px;
         }
 
         h1 {
             color: #6B4E5B;
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             z-index: 10;
             text-align: center;
             line-height: 1.4;
-            background-color: rgba(255, 240, 245, 0.9);
-            padding: 15px 25px;
+            background-color: rgba(255, 245, 247, 0.88); /* خلفية ضبابية ناعمة لتوضيح النص فوق تفاصيل الصورة */
+            padding: 15px 20px;
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-top: 10px;
             max-width: 90%;
-            /* أنيميشن ظهور العنوان */
             animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
@@ -49,13 +48,13 @@
             position: relative;
             width: 100%;
             max-width: 450px;
-            height: 250px;
+            height: 180px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
             z-index: 10;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             animation: popIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
@@ -63,8 +62,8 @@
             background-color: #E28F9D;
             color: white;
             border: none;
-            padding: 16px 36px;
-            font-size: 1.2rem;
+            padding: 15px 35px;
+            font-size: 1.15rem;
             font-weight: 600;
             border-radius: 30px;
             cursor: pointer;
@@ -72,7 +71,6 @@
             transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             white-space: nowrap;
             z-index: 12;
-            /* أنيميشن نبضات القلب لزر القبول */
             animation: pulse 1.5s infinite alternate;
         }
 
@@ -80,8 +78,8 @@
             background-color: #E0E0E0;
             color: #555;
             border: none;
-            padding: 14px 30px;
-            font-size: 1.1rem;
+            padding: 13px 28px;
+            font-size: 1.05rem;
             font-weight: 500;
             border-radius: 30px;
             cursor: pointer;
@@ -90,7 +88,6 @@
             white-space: nowrap;
         }
 
-        /* تعريفات الأنيميشن الجديدة والمكثفة */
         @keyframes popIn {
             from { opacity: 0; transform: scale(0.8) translateY(20px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
@@ -101,6 +98,7 @@
             100% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(226, 143, 157, 0.6); }
         }
 
+        /* تأثير مطر القلوب والزهور المتساقطة بكثافة */
         .heart {
             position: absolute;
             color: #FBC4CB;
@@ -117,6 +115,7 @@
             100% { transform: translateY(105vh) rotate(360deg); }
         }
 
+        /* تصميم النافذة المنبثقة البسيطة والأنيقة */
         .custom-modal {
             display: none;
             position: fixed;
@@ -187,9 +186,9 @@
     </div>
 
     <script>
-        let yesSize = 1.2;
-        let paddingX = 36;
-        let paddingY = 16;
+        let yesSize = 1.15;
+        let paddingX = 35;
+        let paddingY = 15;
         let hasMoved = false;
 
         function moveNo() {
@@ -197,7 +196,6 @@
             const yesBtn = document.getElementById('yesBtn');
             const container = document.getElementById('container');
             
-            // إيقاف أنيميشن النبض الافتراضي لزر نعم بمجرد أن يبدأ زر لا بالهروب والتضخم التفاعلي
             yesBtn.style.animation = 'none';
 
             if (!hasMoved) {
@@ -256,7 +254,6 @@
             }, 300);
         }
 
-        // زيادة سرعة وتكثيف تساقط زهور الكرز والقلوب
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -265,17 +262,17 @@
                 heart.innerHTML = '💖';
             }
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's'; // تساقط أسرع
-            heart.style.fontSize = Math.random() * 12 + 12 + 'px';
+            heart.style.animationDuration = Math.random() * 2.5 + 2 + 's'; 
+            heart.style.fontSize = Math.random() * 12 + 14 + 'px';
             document.body.appendChild(heart);
 
             setTimeout(() => {
                 heart.remove();
-            }, 5000);
+            }, 4500);
         }
 
-        // تقليل المدة لتوليد عناصر أكثر حيوية (كل 300 مللي ثانية بدلاً من 450)
-        setInterval(createHeart, 300);
+        // تساقط مستمر وممتع كل 250 مللي ثانية
+        setInterval(createHeart, 250);
     </script>
 </body>
 </html>
