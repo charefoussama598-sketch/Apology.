@@ -17,15 +17,16 @@
             align-items: center;
             justify-content: space-between;
             min-height: 100vh;
-            /* رابط الصورة الأصلي والمباشر والمضمون */
-            background-image: url('https://i.pinimg.com/originals/1c/a9/52/1ca9527ac1d06d633fb198ace8f00cc4.jpg');
+            background-color: #FFF0F5;
+            /* استدعاء الصورة مباشرة ومضمونة من مستودع apology الخاص بكِ */
+            background-image: url('https://raw.githubusercontent.com/charefoussama598-sketch/apology/main/1ca9527ac1d06d633fb198ace8f00cc4.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             position: relative;
-            padding: 40px 20px;
+            padding: 30px 20px;
         }
 
         h1 {
@@ -34,52 +35,70 @@
             z-index: 10;
             text-align: center;
             line-height: 1.4;
-            background-color: rgba(255, 240, 245, 0.85); /* خلفية بيضاء ضبابية لتتضح الكتابة فوق الصورة */
+            background-color: rgba(255, 240, 245, 0.9);
             padding: 15px 25px;
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-top: 20px;
+            margin-top: 10px;
+            max-width: 90%;
+            /* أنيميشن ظهور العنوان */
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         .buttons-container {
             position: relative;
             width: 100%;
-            max-width: 400px;
-            height: 200px;
+            max-width: 450px;
+            height: 250px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
             z-index: 10;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
+            animation: popIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         #yesBtn {
             background-color: #E28F9D;
             color: white;
             border: none;
+            padding: 16px 36px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(226, 143, 157, 0.4);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            white-space: nowrap;
+            z-index: 12;
+            /* أنيميشن نبضات القلب لزر القبول */
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        #noBtn {
+            background-color: #E0E0E0;
+            color: #555;
+            border: none;
             padding: 14px 30px;
             font-size: 1.1rem;
             font-weight: 500;
             border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(226, 143, 157, 0.4);
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            white-space: nowrap;
-            z-index: 12;
-        }
-
-        #noBtn {
-            background-color: #E0E0E0;
-            color: #666;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            border-radius: 30px;
-            cursor: pointer;
             transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 11;
             white-space: nowrap;
+        }
+
+        /* تعريفات الأنيميشن الجديدة والمكثفة */
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 5px 15px rgba(226, 143, 157, 0.4); }
+            100% { transform: scale(1.05); box-shadow: 0 8px 25px rgba(226, 143, 157, 0.6); }
         }
 
         .heart {
@@ -93,9 +112,9 @@
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(105vh) rotate(360deg);
-            }
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(105vh) rotate(360deg); }
         }
 
         .custom-modal {
@@ -127,12 +146,12 @@
 
         .modal-content h2 {
             color: #6B4E5B;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-top: 0;
         }
 
         .modal-content p {
-            color: #888;
+            color: #666;
             font-size: 1rem;
             line-height: 1.5;
             margin-bottom: 20px;
@@ -142,10 +161,11 @@
             background-color: #E28F9D;
             color: white;
             border: none;
-            padding: 10px 25px;
+            padding: 10px 30px;
             font-size: 1rem;
             border-radius: 20px;
             cursor: pointer;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -167,9 +187,9 @@
     </div>
 
     <script>
-        let yesSize = 1.1;
-        let paddingX = 30;
-        let paddingY = 14;
+        let yesSize = 1.2;
+        let paddingX = 36;
+        let paddingY = 16;
         let hasMoved = false;
 
         function moveNo() {
@@ -177,6 +197,9 @@
             const yesBtn = document.getElementById('yesBtn');
             const container = document.getElementById('container');
             
+            // إيقاف أنيميشن النبض الافتراضي لزر نعم بمجرد أن يبدأ زر لا بالهروب والتضخم التفاعلي
+            yesBtn.style.animation = 'none';
+
             if (!hasMoved) {
                 noBtn.style.position = 'absolute';
                 yesBtn.style.position = 'absolute';
@@ -233,6 +256,7 @@
             }, 300);
         }
 
+        // زيادة سرعة وتكثيف تساقط زهور الكرز والقلوب
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
@@ -241,16 +265,17 @@
                 heart.innerHTML = '💖';
             }
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 4 + 3 + 's';
-            heart.style.fontSize = Math.random() * 10 + 12 + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's'; // تساقط أسرع
+            heart.style.fontSize = Math.random() * 12 + 12 + 'px';
             document.body.appendChild(heart);
 
             setTimeout(() => {
                 heart.remove();
-            }, 6000);
+            }, 5000);
         }
 
-        setInterval(createHeart, 450);
+        // تقليل المدة لتوليد عناصر أكثر حيوية (كل 300 مللي ثانية بدلاً من 450)
+        setInterval(createHeart, 300);
     </script>
 </body>
 </html>
